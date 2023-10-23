@@ -1,0 +1,14 @@
+<h1>Welcome to the Recipe Dashboard</h1>
+
+<h2>Latest Recipes:</h2>
+
+<ul>
+  <% @recipes.each do |recipe| %>
+    <li>
+      <strong><%= recipe.name %></strong> 
+      <p>Preparation time: <%= recipe.preparation_time %> minutes</p>
+      <p>Cooking time: <%= recipe.cooking_time %> minutes</p>
+      <p><%= recipe.description %></p>
+    </li>
+  <% end %>
+</ul>
