@@ -1,0 +1,9 @@
+<h1>Recipes</h1>
+<% if @recipes.empty? %>
+  <h2>There are no recipes created yet</h2>
+  <%= link_to 'Create One!', new_recipe_path %>
+<% else %>
+  <% @recipes.each do |recipe| %>
+    <p> <%= recipe.name %> </p>
+  <% end %>
+<% end %>
