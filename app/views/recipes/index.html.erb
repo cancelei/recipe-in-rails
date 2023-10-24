@@ -4,6 +4,13 @@
   <%= link_to 'Create One!', new_recipe_path %>
 <% else %>
   <% @recipes.each do |recipe| %>
-    <p> <%= recipe.name %> </p>
+    <div>
+      <%= link_to recipe.name, recipe %>
+      <p>Description: <%= recipe.description %></p>
+      <% if recipe.user == current_user %>
+        <p>Delete (will replace with button later)</p>
+      <% end %>
+    </div>
   <% end %>
 <% end %>
+<%= link_to 'Create new recipe', new_recipe_path %>
