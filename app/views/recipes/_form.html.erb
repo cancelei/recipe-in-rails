@@ -1,0 +1,33 @@
+<%= form_with model: recipe do |f| %>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :preparation_time %><br>
+    <%= f.number_field :preparation_time %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cooking_time %><br>
+    <%= f.number_field :cooking_time %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :public %><br>
+    <%= f.radio_button :public, true %>
+    <%= f.label :yes_no_field, 'Yes' %>
+    <%= f.radio_button :public, false %>
+    <%= f.label :yes_no_field, 'No' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
