@@ -76,4 +76,4 @@ end
 gem 'devise'
 gem 'sassc-rails'
 
-gem "factory_bot", "~> 6.3"
+gem 'factory_bot', '~> 6.3'

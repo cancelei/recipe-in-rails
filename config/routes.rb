@@ -16,5 +16,6 @@ Rails.application.routes.draw do
   end
   
   root to: 'dashboard#index'
+  resources :foods
 
 end
