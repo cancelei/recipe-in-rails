@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  get 'public_recipes/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+    confirmations: 'users/confirmations'
+  }
 
 
   devise_scope :user do
@@ -19,5 +22,6 @@ Rails.application.routes.draw do
   root to: 'dashboard#index'
   resources :foods
   resources :recipes
+  get 'public_recipes/index', to: 'public_recipes#index', as: 'public_recipes_index'
 
 end
