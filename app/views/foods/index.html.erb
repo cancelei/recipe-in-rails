@@ -3,16 +3,50 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
+      <th scope="col" class="px-6 py-3">
+        Name
+      </th>
+      <th scope="col" class="px-6 py-3">
+        Measurement Unit
+      </th>
+      <th scope="col" class="px-6 py-3">
+        Price
+      </th>
+      <th scope="col" class="px-6 py-3">
+        Quantity
+      </th>
+      <th scope="col" class="px-6 py-3">
+        Actions
+      </th>
+      <!-- <th>Name</th>
       <th>Measurement Unit</th>
       <th>Price</th>
       <th>Quantity</th>
-      <th>Actions</th>
+      <th>Actions</th> -->
     </tr>
   </thead>
   <tbody>
     <% @foods.each do |food| %>
-      <tr>
+      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          <%= food.name %>
+        </th>
+        <td class="text-white px-6 py-4">
+          <%= food.measurement_unit %>
+        </td>
+        <td class="text-white px-6 py-4">
+          <%= food.price %>
+        </td>
+        <td class="text-white px-6 py-4">
+          <%= food.quantity %>
+        </td>
+        <td class="text-white px-6 py-4">
+          <%= link_to 'Edit', edit_food_path(food) %> |
+          <%= link_to 'Delete', food_path(food), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+    </tr>
+
+      <!-- <tr>
         <td><%= food.name %></td>
         <td><%= food.measurement_unit %></td>
         <td><%= food.price %></td>
@@ -21,7 +55,7 @@
           <%= link_to 'Edit', edit_food_path(food) %> |
           <%= link_to 'Delete', food_path(food), method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
-      </tr>
+      </tr> -->
     <% end %>
   </tbody>
 </table>
