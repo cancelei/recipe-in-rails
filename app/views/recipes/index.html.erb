@@ -1,16 +1,26 @@
-<h1>Recipes</h1>
-<% if @recipes.empty? %>
-  <h2>There are no recipes created yet</h2>
-  <%= link_to 'Create One!', new_recipe_path %>
-<% else %>
-  <% @recipes.each do |recipe| %>
-    <div>
-      <%= link_to recipe.name, recipe %>
-      <p>Description: <%= recipe.description %></p>
-      <% if recipe.user == current_user %>
-        <p>Delete (will replace with button later)</p>
-      <% end %>
-    </div>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recipes Index</title>
+  <%= stylesheet_link_tag 'recipes/recipe_index' %>
+</head>
+<body>
+  <h1>Recipes</h1>
+  <% if @recipes.empty? %>
+    <h2>There are no recipes created yet</h2>
+    <%= link_to 'Create One!', new_recipe_path %>
+  <% else %>
+    <% @recipes.each do |recipe| %>
+      <div>
+        <%= link_to recipe.name, recipe %>
+        <p>Description: <%= recipe.description %></p>
+        <% if recipe.user == current_user %>
+          <p>Delete (will replace with button later)</p>
+        <% end %>
+      </div>
+    <% end %>
+    <%= link_to 'Create new recipe', new_recipe_path %>
   <% end %>
-  <%= link_to 'Create new recipe', new_recipe_path %>
-<% end %>
+</body>
+</html>
+
