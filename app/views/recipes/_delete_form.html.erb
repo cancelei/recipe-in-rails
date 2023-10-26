@@ -1,0 +1,3 @@
+<%= form_for recipe, url: recipe_path(recipe), method: :delete, data: { confirm: "Are you sure? The recipe will be permanently deleted" } do |f| %>
+  <%= f.submit "Delete" %>
+<% end %>

@@ -8,18 +8,20 @@
   <h1>Recipes</h1>
   <% if @recipes.empty? %>
     <h2>There are no recipes created yet</h2>
-    <%= link_to 'Create One!', new_recipe_path %>
+    <%= link_to 'Create One!', new_recipe_path, class: "recipe-link" %>
   <% else %>
     <% @recipes.each do |recipe| %>
-      <div>
-        <%= link_to recipe.name, recipe %>
-        <p>Description: <%= recipe.description %></p>
-        <% if recipe.user == current_user %>
-          <p>Delete (will replace with button later)</p>
-        <% end %>
+      <div class="recipe-container">
+        <div>
+          <%= link_to recipe.name, recipe, class: "recipe-link title-link" %>
+          <% if recipe.user == current_user %>
+            <%= render partial: 'delete_form', locals: { recipe: recipe } %>
+          <% end %>
+        </div>
+        <p class="recipe-description">Description: <%= recipe.description %></p>
       </div>
     <% end %>
-    <%= link_to 'Create new recipe', new_recipe_path %>
+    <%= link_to 'Create new recipe', new_recipe_path, class: "recipe-link" %>
   <% end %>
 </body>
 </html>

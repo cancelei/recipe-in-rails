@@ -28,6 +28,8 @@ class RecipesController < ApplicationController
   end
 
   def destroy
+    @recipe = current_user.recipes.find(params[:id])
+    redirect_to recipes_path, notice: 'Recipe deleted successfully!' if @recipe.destroy
   end
 
   private
