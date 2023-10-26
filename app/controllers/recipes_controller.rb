@@ -25,6 +25,15 @@ class RecipesController < ApplicationController
   end
 
   def update
+    @recipe = current_user.recipes.find(params[:id])
+
+    @recipe.update(public: !@recipe.public)
+
+    if @recipe.save
+      redirect_to @recipe, notice: @recipe.public ? 'Recipe is now public' : 'Recipe is now private'
+    else
+      render :show, alert: 'Failed to update the recipe'
+    end
   end
 
   def destroy
