@@ -77,3 +77,5 @@ gem 'devise'
 gem 'sassc-rails'
 
 gem 'factory_bot', '~> 6.3'
+
+gem "tailwindcss-rails", "~> 2.0"

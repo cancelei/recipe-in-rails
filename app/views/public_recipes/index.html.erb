@@ -1,0 +1,9 @@
+<h1>Public Recipes</h1>
+<% if @recipes.empty? %>
+  <h2>No public recipes yet <%= link_to 'Create a public recipe!', new_recipe_path%></h2>
+<% else %>
+  <% @recipes.each do |recipe| %>
+    <p><%= recipe.name %></p>
+    <p>By: <%= recipe.user.name %> </p>
+  <% end %>
+<% end %>
