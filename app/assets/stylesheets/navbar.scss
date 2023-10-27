@@ -5,8 +5,9 @@
 
   .navbar-content {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    width: 99%;
   }
 
   .navbar-brand {
@@ -19,7 +20,7 @@
       margin-left: 20px;
       color: white;
       text-decoration: none;
-      transition: color 0.3s;
+      transition: color 0.5s;
 
       &:hover {
         color: #ddd;
