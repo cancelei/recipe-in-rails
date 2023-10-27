@@ -1,0 +1,9 @@
+input {
+  margin: 10px 0;
+  color: #047fff;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}

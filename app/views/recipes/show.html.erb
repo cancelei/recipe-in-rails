@@ -1,19 +1,28 @@
-<h1><%= @recipe.name %></h1>
-<div>
-  <% if @recipe.preparation_time >= 60 && @recipe.cooking_time >= 60 %>
-    <p>Preparation time: <%= @recipe.preparation_time / 60 %>:<%= @recipe.preparation_time % 60 %> hour </p>
-    <p>Cooking time: <%= @recipe.cooking_time / 60 %>:<%= @recipe.cooking_time % 60 %> hour </p>
-  <% else %>
-    <p>Preparation time: <%= @recipe.preparation_time %> mins </p>
-    <p>Cooking time: <%= @recipe.cooking_time %> mins </p>
-  <% end %>
-  <% if @recipe.public %>
-    <p>Public: Yes</p>
-  <% else %>
-    <p>Public: No</p>
-  <% end %>
-  <%= form_for @recipe, url: recipe_path(@recipe), method: :put do |f| %>
-    <%= f.hidden_field :public, value: !@recipe.public ? true : false %>
-    <%= f.submit @recipe.public ? "Make Private" : "Make Public", class: 'toggle-button' %>
-  <% end %>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recipe <%= @recipe.name %></title>
+  <%= stylesheet_link_tag 'recipes/recipe_show' %>
+</head>
+<body>
+  <h1 class="recipe-title"><%= @recipe.name %></h1>
+  <div>
+    <% if @recipe.preparation_time >= 60 && @recipe.cooking_time >= 60 %>
+      <p>Preparation time: <%= @recipe.preparation_time / 60 %>:<%= @recipe.preparation_time % 60 %> hour </p>
+      <p>Cooking time: <%= @recipe.cooking_time / 60 %>:<%= @recipe.cooking_time % 60 %> hour </p>
+    <% else %>
+      <p>Preparation time: <%= @recipe.preparation_time %> mins </p>
+      <p>Cooking time: <%= @recipe.cooking_time %> mins </p>
+    <% end %>
+    <%= @recipe.description %>
+    <% if @recipe.public %>
+      <p>Public Recipe</p>
+    <% else %>
+      <p>Private Recipe</p>
+    <% end %>
+    <%= form_for @recipe, url: recipe_path(@recipe), method: :put do |f| %>
+      <%= f.hidden_field :public, value: !@recipe.public ? true : false %>
+      <%= f.submit @recipe.public ? "Make Private" : "Make Public", class: 'toggle-button' %>
+    <% end %>
+  </div>
+</body>
