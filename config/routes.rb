@@ -21,7 +21,9 @@ Rails.application.routes.draw do
   
   root to: 'dashboard#index'
   resources :foods
-  resources :recipes
+  resources :recipes do
+    resources :recipe_foods, only: [:create, :destroy]
+  end
   get 'public_recipes/index', to: 'public_recipes#index', as: 'public_recipes_index'
 
 end
