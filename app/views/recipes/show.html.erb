@@ -1,28 +1,29 @@
-<a href="<%= url_for(action: :index) %>" class="inline-block mb-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">
-  ← Back
-</a>
-
-<h1 class="text-4xl font-bold mb-4"><%= @recipe.name %></h1>
-<div class="space-y-2 bg-white p-6 rounded shadow-md">
-  <p class="text-lg">
-    Preparation time:
-    <% hours = @recipe.preparation_time / 60 %>
-    <% minutes = @recipe.preparation_time % 60 %>
-    <%= hours > 0 ? "#{hours} hour#{'s' if hours > 1} " : "" %><%= "#{minutes} minute#{'s' if minutes != 1}" %>
-  </p>
-
-  <p class="text-lg">
-    Cooking time:
-    <% hours = @recipe.cooking_time / 60 %>
-    <% minutes = @recipe.cooking_time % 60 %>
-    <%= hours > 0 ? "#{hours} hour#{'s' if hours > 1} " : "" %><%= "#{minutes} minute#{'s' if minutes != 1}" %>
-  </p>
-
-  <p class="text-lg">
-    <% if @recipe.public %>
-      Public: <span class="text-green-500">Yes</span>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recipe <%= @recipe.name %></title>
+  <%= stylesheet_link_tag 'recipes/recipe_show' %>
+</head>
+<body>
+  <h1 class="recipe-title"><%= @recipe.name %></h1>
+  <div>
+    <% if @recipe.preparation_time >= 60 && @recipe.cooking_time >= 60 %>
+      <p>Preparation time: <%= @recipe.preparation_time / 60 %>:<%= @recipe.preparation_time % 60 %> hour </p>
+      <p>Cooking time: <%= @recipe.cooking_time / 60 %>:<%= @recipe.cooking_time % 60 %> hour </p>
     <% else %>
-      Public: <span class="text-red-500">No</span>
+      <p>Preparation time: <%= @recipe.preparation_time %> mins </p>
+      <p>Cooking time: <%= @recipe.cooking_time %> mins </p>
     <% end %>
-  </p>
-</div>
+    <%= @recipe.description %>
+    <% if @recipe.public %>
+      <p>Public Recipe</p>
+    <% else %>
+      <p>Private Recipe</p>
+    <% end %>
+    <%= form_for @recipe, url: recipe_path(@recipe), method: :put do |f| %>
+      <%= f.hidden_field :public, value: !@recipe.public ? true : false %>
+      <%= f.submit @recipe.public ? "Make Private" : "Make Public", class: 'toggle-button' %>
+    <% end %>
+  </div>
+</body>
+

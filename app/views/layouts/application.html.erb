@@ -13,8 +13,14 @@
 
   <body class="h-full">
     <%= render 'shared/navbar' %>
-    <%= notice %>
-    <%= alert %>
+    <br>
+    <div class="notice-flash">
+      <%= notice %>
+    </div>
+    <div class="alert-flash">
+      <%= alert %>
+    </div>
+    <br>
     <%= yield %>
   </body>
 </html>
