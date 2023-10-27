@@ -21,8 +21,7 @@ class RecipesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @recipe = current_user.recipes.find(params[:id])
