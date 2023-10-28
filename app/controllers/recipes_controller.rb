@@ -43,6 +43,13 @@ class RecipesController < ApplicationController
     redirect_to recipes_path, notice: 'Recipe deleted successfully!'
   end
 
+  def generate_shopping_list
+    missing_ingredients_data = current_user.missing_ingredients_for_recipes
+    @missing_ingredients = missing_ingredients_data.map { |data| data[:food] }
+    @total_price = missing_ingredients_data.sum { |data| data[:missing_quantity] * data[:food].price }
+    render :shopping_list
+  end
+
   private
 
   def recipe_params
