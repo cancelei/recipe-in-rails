@@ -1,9 +1,23 @@
-<h1>Public Recipes</h1>
-<% if @recipes.empty? %>
-  <h2>No public recipes yet <%= link_to 'Create a public recipe!', new_recipe_path%></h2>
-<% else %>
-  <% @recipes.each do |recipe| %>
-    <p><%= recipe.name %></p>
-    <p>By: <%= recipe.user.name %> </p>
+<head>
+  <title>Public Recipes</title>
+</head>
+<body>
+  <h1 class="recipe-title">Public Recipes</h1>
+  <% if @recipes.empty? %>
+    <h2 class="no-recipes-subtitle">No public recipes available yet</h2>
+    <%= link_to 'Create a Public Recipe!', new_recipe_path, class: "recipe-link" %>
+  <% else %>
+    <% @recipes.each do |recipe| %>
+      <div class="recipe-container">
+        <div>
+          <%= link_to recipe.name, recipe, class: "recipe-link title-link" %>
+          <p class="recipe-author">By: <%= recipe.user.name %></p>
+        </div>
+        <p class="recipe-description"><strong>Description:</strong> <%= recipe.description %></p>
+      </div>
+    <% end %>
+    <div class="link-container">
+      <%= link_to 'Create a New Public Recipe', new_recipe_path, class: "recipe-link new-recipe-link" %>
+    </div>
   <% end %>
-<% end %>
+</body>
