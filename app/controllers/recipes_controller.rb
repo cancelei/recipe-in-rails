@@ -20,9 +20,11 @@ class RecipesController < ApplicationController
     if @recipe.save
       redirect_to @recipe, notice: 'Recipe created successfully!'
     else
-      render :new, notice: 'There was an error creating your recipe'
+      flash[:notice] = 'There was an error creating your recipe'
+      render :new
     end
   end
+
 
   def edit; end
 
