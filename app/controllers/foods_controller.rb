@@ -5,7 +5,7 @@ class FoodsController < ApplicationController
 
   # GET /foods
   def index
-    @foods = current_user.foods
+    @foods = current_user.foods.includes(:user)
   end
 
   # GET /foods/1
@@ -60,7 +60,7 @@ class FoodsController < ApplicationController
 
   # Ensure the current user is the owner of the food item
   def check_owner
-    unless @food.user == current_user
+    unless @food.user_id == current_user.id
       redirect_to foods_path, alert: "Sorry, you don't have access to that page"
       return
     end
