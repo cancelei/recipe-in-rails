@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class RecipeFoodTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+RSpec.describe RecipeFood, type: :model do
+  # Associations
+  it { should belong_to(:recipe) }
+  it { should belong_to(:food) }
 end
