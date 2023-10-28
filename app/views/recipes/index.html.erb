@@ -7,8 +7,12 @@
 <body>
   <h1 class="recipe-title">Recipes</h1>
   <% if @recipes.empty? %>
-    <h2 class="no-recipes-subtitle">There are no recipes created yet</h2>
-    <%= link_to 'Create One!', new_recipe_path, class: "recipe-link" %>
+    <div class="no-recipes-container">
+      <h2 class="no-recipes-subtitle">There are no recipes created yet</h2>
+      <div class="link-container">
+        <%= link_to 'Create One!', new_recipe_path, class: "recipe-link new-recipe-link" %>
+      </div>
+    </div>
   <% else %>
     <% @recipes.each do |recipe| %>
       <div class="recipe-container">

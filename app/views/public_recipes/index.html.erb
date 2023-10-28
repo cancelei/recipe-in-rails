@@ -3,7 +3,7 @@
   <h2>No public recipes yet <%= link_to 'Create a public recipe!', new_recipe_path%></h2>
 <% else %>
   <% @recipes.each do |recipe| %>
-    <p><%= recipe.name %></p>
+    <%= link_to recipe.name, recipe, class: "recipe-link title-link" %>
     <p>By: <%= recipe.user.name %> </p>
   <% end %>
 <% end %>

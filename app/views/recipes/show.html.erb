@@ -73,7 +73,9 @@
           Generate shopping list
         </button>
         <!-- Button to Open the Modal -->
-        <button onclick="openModal()">Add Ingredient</button>
+        <% if current_user == @recipe.user %>
+          <button onclick="openModal()">Add Ingredient</button>
+        <% end %>
         <!-- Modal Content -->
         <div id="addIngredientModal" class="modal" style="display: none">
           <div class="modal-content">
