@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Recipe, type: :model do
-  subject { FactoryBot.build(:recipe) }
+  let(:user) { FactoryBot.create(:user) }
+  subject { FactoryBot.build(:recipe, user: user) }
 
   describe 'associations' do
     it { should belong_to(:user) }

@@ -5,7 +5,7 @@ FactoryBot.define do
     cooking_time { rand(10..240) }    # Randomly assign a cooking time between 10 and 240 minutes
     description { Faker::Food.description }
     public { [true, false].sample }
-    user
+    user { association(:user) }
 
     # If you wish to create a recipe with associated foods, you can add a trait:
     trait :with_foods do
