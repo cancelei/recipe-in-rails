@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
   def index
-    @recipes = Recipe.all.limit(10) # Display the latest 10 recipes for simplicity.
+    @recipes = Recipe.includes(:user).order(created_at: :desc).limit(10)
   end
 end

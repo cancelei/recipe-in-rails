@@ -14,7 +14,7 @@ class RecipeFoodsController < ApplicationController
 
   # Remove an ingredient association from a recipe
   def destroy
-    @recipe_food = @recipe.recipe_foods.find(params[:id])
+    @recipe_food = RecipeFood.find(params[:id])
     if @recipe_food.destroy
       flash[:notice] = 'Ingredient removed successfully.'
       redirect_to @recipe
@@ -27,7 +27,7 @@ class RecipeFoodsController < ApplicationController
   private
 
   def set_recipe
-    @recipe = Recipe.find(params[:recipe_id])
+    @recipe = Recipe.includes(recipe_foods: :food).find(params[:recipe_id])
   end
 
   def recipe_food_params

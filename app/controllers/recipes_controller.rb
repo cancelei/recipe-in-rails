@@ -2,11 +2,11 @@ class RecipesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def index
-    @recipes = current_user.recipes
+    @recipes = current_user.recipes.includes(recipe_foods: :food)
   end
 
   def show
-    @recipe = current_user.recipes.find(params[:id])
+    @recipe = current_user.recipes.includes(recipe_foods: :food).find(params[:id])
     @recipe_food = @recipe.recipe_foods.new
   end
 
