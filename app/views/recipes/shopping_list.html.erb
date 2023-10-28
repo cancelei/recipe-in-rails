@@ -1,12 +1,25 @@
-<h2>Shopping List</h2>
+<h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">Shopping List</h2>
 
-<ul>
-<% @missing_ingredients.each do |ingredient| %>
-  <li>
-    <%= ingredient.name %> - <%= ingredient.quantity %> <%= ingredient.measurement_unit %>
-  </li>
-<% end %>
-</ul>
+<p style="margin-top: 20px; font-weight: bold;">Total food items: <%= @missing_ingredients.count %></p>
+<p style="font-weight: bold; margin-bottom: 20px;">Total price: <%= @total_price %></p>
 
-<p>Total food items: <%= @missing_ingredients.count %></p>
-<p>Total price: <%= @total_price %></p>
+<table style="width: 100%; border-collapse: collapse;">
+    <thead>
+        <tr style="border-bottom: 2px solid #ccc;">
+            <th style="padding: 10px; text-align: left;">Food</th>
+            <th style="padding: 10px; text-align: left;">Quantity</th>
+            <th style="padding: 10px; text-align: left;">Price per Unit</th>
+            <th style="padding: 10px; text-align: left;">Sub-Total</th>
+        </tr>
+    </thead>
+    <tbody>
+    <% @missing_ingredients.each do |ingredient| %>
+        <tr>
+            <td style="padding: 10px; border-top: 1px solid #ccc;"><%= ingredient.name %></td>
+            <td style="padding: 10px; border-top: 1px solid #ccc;"><%= ingredient.quantity %> <%= ingredient.measurement_unit %></td>
+            <td style="padding: 10px; border-top: 1px solid #ccc;"><%= ingredient.price %></td>
+            <td style="padding: 10px; border-top: 1px solid #ccc;"><%= ingredient.quantity * ingredient.price %></td>
+        </tr>
+    <% end %>
+    </tbody>
+</table>
