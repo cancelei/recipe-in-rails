@@ -13,17 +13,23 @@ Rails.application.routes.draw do
     authenticated :user do
       root 'dashboard#index', as: :authenticated_root
     end
-  
+
     unauthenticated do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
   end
-  
+
   root to: 'dashboard#index'
   resources :foods
   resources :recipes do
     resources :recipe_foods, only: [:create, :destroy]
   end
   get 'public_recipes/index', to: 'public_recipes#index', as: 'public_recipes_index'
+
+  resources :recipes do
+    member do
+      get :generate_shopping_list
+    end
+  end
 
 end

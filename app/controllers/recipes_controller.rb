@@ -2,11 +2,11 @@ class RecipesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def index
-    @recipes = current_user.recipes
+    @recipes = current_user.recipes.includes(recipe_foods: :food)
   end
 
   def show
-    @recipe = current_user.recipes.find(params[:id])
+    @recipe = current_user.recipes.includes(recipe_foods: :food).find(params[:id])
     @recipe_food = @recipe.recipe_foods.new
   end
 
@@ -41,6 +41,13 @@ class RecipesController < ApplicationController
     @recipe.recipe_foods.destroy_all # This will destroy all associated recipe_foods records
     @recipe.destroy
     redirect_to recipes_path, notice: 'Recipe deleted successfully!'
+  end
+
+  def generate_shopping_list
+    missing_ingredients_data = current_user.missing_ingredients_for_recipes
+    @missing_ingredients = missing_ingredients_data.map { |data| data[:food] }
+    @total_price = missing_ingredients_data.sum { |data| data[:missing_quantity] * data[:food].price }
+    render :shopping_list
   end
 
   private

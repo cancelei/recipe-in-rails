@@ -1,69 +1,32 @@
 <h2>Your Foods</h2>
 
-<table>
+<%= link_to 'Add New Food', new_food_path, style: "background-color: #4CAF50; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px; float: right;" %>
+<div style="clear: both;"></div> <!-- To clear the float -->
+
+<table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
   <thead>
     <tr>
-      <th scope="col" class="px-6 py-3">
-        Name
-      </th>
-      <th scope="col" class="px-6 py-3">
-        Measurement Unit
-      </th>
-      <th scope="col" class="px-6 py-3">
-        Price
-      </th>
-      <th scope="col" class="px-6 py-3">
-        Quantity
-      </th>
-      <th scope="col" class="px-6 py-3">
-        Actions
-      </th>
-      <!-- <th>Name</th>
-      <th>Measurement Unit</th>
-      <th>Price</th>
-      <th>Quantity</th>
-      <th>Actions</th> -->
+      <th scope="col" class="px-6 py-3">Name</th>
+      <th scope="col" class="px-6 py-3">Measurement Unit</th>
+      <th scope="col" class="px-6 py-3">Price</th>
+      <th scope="col" class="px-6 py-3">Quantity</th>
+      <th scope="col" class="px-6 py-3">Actions</th>
     </tr>
   </thead>
   <tbody>
     <% @foods.each do |food| %>
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-          <%= food.name %>
-        </th>
-        <td class="text-white px-6 py-4">
-          <%= food.measurement_unit %>
-        </td>
-        <td class="text-white px-6 py-4">
-          <%= food.price %>$
-        </td>
-        <td class="text-white px-6 py-4 green-text">
-          <%= food.quantity %>
-        </td>
-        <td class="text-white px-6 py-4">
-          <%= link_to 'Edit', edit_food_path(food) %> |
-          <%= link_to 'Delete', food_path(food), method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
-    </tr>
-
-      <!-- <tr>
-        <td><%= food.name %></td>
-        <td><%= food.measurement_unit %></td>
-        <td><%= food.price %></td>
-        <td><%= food.quantity %></td>
-        <td>
-          <%= link_to 'Edit', edit_food_path(food) %> |
+      <tr style="background-color: #f5f5f5; border: 1px solid #ddd;">
+        <th scope="row" style="padding: 8px; text-align: left; border: 1px solid #ddd;"><%= food.name %></th>
+        <td style="padding: 8px; text-align: left; border: 1px solid #ddd;"><%= food.measurement_unit %></td>
+        <td style="padding: 8px; text-align: left; border: 1px solid #ddd;"><%= food.price %>$</td>
+        <td style="padding: 8px; text-align: left; border: 1px solid #ddd; color: green;"><%= food.quantity %></td>
+        <td style="padding: 8px; text-align: left; border: 1px solid #ddd;">
+          <%= link_to 'Edit', edit_food_path(food), style: "color: #337ab7; text-decoration: none;" %> |
           <%= form_with url: food_path(food), method: :delete do |form| %>
-
-
-
-
-  <%= form.submit 'Delete', data: { confirm: 'Are you sure?' } %>
-<% end %>
+            <%= form.submit 'Delete', data: { confirm: 'Are you sure?' }, style: "color: red; background: none; border: none; padding: 0; font: inherit; cursor: pointer; text-decoration: underline;" %>
+          <% end %>
         </td>
-      </tr> -->
+      </tr>
     <% end %>
   </tbody>
 </table>
-
-<%= link_to 'Add New Food', new_food_path %>
