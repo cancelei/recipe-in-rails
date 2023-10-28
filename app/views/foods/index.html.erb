@@ -42,26 +42,11 @@
         </td>
         <td class="text-white px-6 py-4">
           <%= link_to 'Edit', edit_food_path(food) %> |
-          <%= link_to 'Delete', food_path(food), method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= form_with url: food_path(food), method: :delete do |form| %>
+            <%= form.submit 'Delete', data: { confirm: 'Are you sure?' } %>
+          <% end %>
         </td>
     </tr>
-
-      <!-- <tr>
-        <td><%= food.name %></td>
-        <td><%= food.measurement_unit %></td>
-        <td><%= food.price %></td>
-        <td><%= food.quantity %></td>
-        <td>
-          <%= link_to 'Edit', edit_food_path(food) %> |
-          <%= form_with url: food_path(food), method: :delete do |form| %>
-
-
-
-
-  <%= form.submit 'Delete', data: { confirm: 'Are you sure?' } %>
-<% end %>
-        </td>
-      </tr> -->
     <% end %>
   </tbody>
 </table>

@@ -41,10 +41,15 @@ class FoodsController < ApplicationController
 
   # DELETE /foods/1
   def destroy
-    @food.recipe_foods.destroy_all
-    @food.destroy
-    redirect_to foods_url, notice: 'Food item was successfully destroyed.'
+    if @food.user == current_user   # Assuming `current_user` is a method that returns the currently logged-in user and the food item has a `user` association.
+      @food.recipe_foods.destroy_all
+      @food.destroy
+      redirect_to foods_url, notice: 'Food item was successfully destroyed.'
+    else
+      redirect_to foods_url, alert: 'You are not authorized to delete this food item.'
+    end
   end
+
 
   private
 
@@ -55,7 +60,10 @@ class FoodsController < ApplicationController
 
   # Ensure the current user is the owner of the food item
   def check_owner
-    redirect_to foods_path, alert: "Sorry, you don't have access to that page" unless @food.user == current_user
+    unless @food.user == current_user
+      redirect_to foods_path, alert: "Sorry, you don't have access to that page"
+      return
+    end
   end
 
   # Only allow a list of trusted parameters through.
