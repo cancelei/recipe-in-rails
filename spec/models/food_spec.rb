@@ -20,24 +20,24 @@ RSpec.describe Food, type: :model do
   # Uniqueness validation for name scoped to user_id
   describe 'uniqueness of name scoped to user_id' do
     let(:user) { create(:user) }
-    let!(:food) { create(:food, user: user, name: 'apple') }
+    let!(:food) { create(:food, user:, name: 'apple') }
 
     it 'does not allow the same food name for the same user' do
-      food_with_same_name = build(:food, user: user, name: 'apple')
+      food_with_same_name = build(:food, user:, name: 'apple')
 
       # Diagnostic steps:
-      puts "Validation errors:"
+      puts 'Validation errors:'
       food_with_same_name.valid?
       puts food_with_same_name.errors.full_messages
       puts "Initial food user_id: #{food.user_id}"
       puts "Initial food name: #{food.name}"
-      puts "Food count with name 'apple' for user: #{Food.where(user: user, name: 'apple').count}"
+      puts "Food count with name 'apple' for user: #{Food.where(user:, name: 'apple').count}"
 
       expect(food_with_same_name).not_to be_valid
     end
 
     it 'allows different food names for the same user' do
-      different_food = build(:food, user: user, name: 'Banana')
+      different_food = build(:food, user:, name: 'Banana')
       expect(different_food).to be_valid
     end
 

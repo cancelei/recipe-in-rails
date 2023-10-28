@@ -16,7 +16,7 @@ RSpec.describe 'recipes/new.html.erb', type: :view do
       expect(rendered).to have_field('recipe[description]')
       expect(rendered).to have_field('recipe[public]', with: true)
       expect(rendered).to have_field('recipe[public]', with: false)
-            expect(rendered).to have_button('Create Recipe')
+      expect(rendered).to have_button('Create Recipe')
     end
   end
 end

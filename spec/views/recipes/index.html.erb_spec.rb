@@ -7,7 +7,7 @@ RSpec.describe 'recipes/index.html.erb', type: :view do
     assign(:recipes, @recipes)
   end
 
-  it "displays all the recipes" do
+  it 'displays all the recipes' do
     render
 
     @recipes.each do |recipe|
@@ -25,7 +25,7 @@ RSpec.describe 'recipes/index.html.erb', type: :view do
     end
   end
 
-  it "has a link to create a new recipe" do
+  it 'has a link to create a new recipe' do
     render
     expect(rendered).to have_link('Create new recipe', href: new_recipe_path)
   end

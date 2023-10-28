@@ -17,5 +17,4 @@ RSpec.describe 'recipes/create.html.erb', type: :view do
   end
 
   # Add more tests based on the content of your create.html.erb
-
 end
