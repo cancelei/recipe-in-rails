@@ -1,6 +1,7 @@
 class Food < ApplicationRecord
   belongs_to :user
   has_many :recipe_foods, dependent: :destroy
+  has_many :related_records, class_name: 'RecipeFood', dependent: :destroy
 
   validates :name, presence: true, uniqueness: { scope: :user_id }
   validates :measurement_unit, presence: true

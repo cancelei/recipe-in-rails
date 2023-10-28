@@ -4,22 +4,22 @@ class RecipeFoodsController < ApplicationController
   def create
     @recipe_food = @recipe.recipe_foods.build(recipe_food_params)
     if @recipe_food.save
-      flash[:notice] = "Ingredient added successfully."
+      flash[:notice] = 'Ingredient added successfully.'
       redirect_to @recipe
     else
-      flash[:alert] = "Failed to add ingredient."
+      flash[:alert] = 'Failed to add ingredient.'
       render 'recipes/show'
     end
   end
 
   # Remove an ingredient association from a recipe
   def destroy
-    @recipe_food = @recipe.recipe_foods.find(params[:id])
+    @recipe_food = RecipeFood.find(params[:id])
     if @recipe_food.destroy
-      flash[:notice] = "Ingredient removed successfully."
+      flash[:notice] = 'Ingredient removed successfully.'
       redirect_to @recipe
     else
-      flash[:alert] = "Failed to remove ingredient."
+      flash[:alert] = 'Failed to remove ingredient.'
       render 'recipes/show'
     end
   end
@@ -27,7 +27,7 @@ class RecipeFoodsController < ApplicationController
   private
 
   def set_recipe
-    @recipe = Recipe.find(params[:recipe_id])
+    @recipe = Recipe.includes(recipe_foods: :food).find(params[:recipe_id])
   end
 
   def recipe_food_params

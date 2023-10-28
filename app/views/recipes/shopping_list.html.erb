@@ -1,0 +1,12 @@
+<h2>Shopping List</h2>
+
+<ul>
+<% @missing_ingredients.each do |ingredient| %>
+  <li>
+    <%= ingredient.name %> - <%= ingredient.quantity %> <%= ingredient.measurement_unit %>
+  </li>
+<% end %>
+</ul>
+
+<p>Total food items: <%= @missing_ingredients.count %></p>
+<p>Total price: <%= @total_price %></p>
