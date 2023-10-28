@@ -4,7 +4,7 @@
 <body>
   <h1 class="recipe-title">Public Recipes</h1>
   <% if @recipes.empty? %>
-    <h2 class="no-recipes-subtitle">No public recipes available yet</h2>
+    <h2 class="no-recipes-subtitle">No public recipes yet</h2>
     <%= link_to 'Create a Public Recipe!', new_recipe_path, class: "recipe-link" %>
   <% else %>
     <% @recipes.each do |recipe| %>
@@ -17,7 +17,7 @@
       </div>
     <% end %>
     <div class="link-container">
-      <%= link_to 'Create a New Public Recipe', new_recipe_path, class: "recipe-link new-recipe-link" %>
+      <%= link_to 'Create a public recipe!', new_recipe_path, class: "recipe-link new-recipe-link" %>
     </div>
   <% end %>
 </body>
