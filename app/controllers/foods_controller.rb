@@ -41,9 +41,11 @@ class FoodsController < ApplicationController
 
   # DELETE /foods/1
   def destroy
+    @food.recipe_foods.destroy_all
     @food.destroy
     redirect_to foods_url, notice: 'Food item was successfully destroyed.'
   end
+
 
   private
 

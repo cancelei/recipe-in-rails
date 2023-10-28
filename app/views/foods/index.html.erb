@@ -53,7 +53,13 @@
         <td><%= food.quantity %></td>
         <td>
           <%= link_to 'Edit', edit_food_path(food) %> |
-          <%= link_to 'Delete', food_path(food), method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= form_with url: food_path(food), method: :delete do |form| %>
+
+
+
+
+  <%= form.submit 'Delete', data: { confirm: 'Are you sure?' } %>
+<% end %>
         </td>
       </tr> -->
     <% end %>
