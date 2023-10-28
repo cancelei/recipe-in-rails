@@ -19,7 +19,7 @@ class User < ApplicationRecord
 
       if stock_quantity < required_quantity
         missing_quantity = required_quantity - stock_quantity
-        missing_ingredients << { food: food, missing_quantity: missing_quantity }
+        missing_ingredients << { food:, missing_quantity: }
       end
     end
 
