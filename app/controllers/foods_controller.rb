@@ -46,7 +46,6 @@ class FoodsController < ApplicationController
     redirect_to foods_url, notice: 'Food item was successfully destroyed.'
   end
 
-
   private
 
   # Use callbacks to share common setup or constraints between actions.

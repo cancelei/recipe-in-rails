@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Recipe, type: :model do
   let(:user) { FactoryBot.create(:user) }
-  subject { FactoryBot.build(:recipe, user: user) }
+  subject { FactoryBot.build(:recipe, user:) }
 
   describe 'associations' do
     it { should belong_to(:user) }
@@ -39,7 +39,7 @@ RSpec.describe Recipe, type: :model do
     it 'validates presence of user' do
       subject.user = nil
       expect(subject).not_to be_valid
-      expect(subject.errors.messages[:user]).to include("must exist")
+      expect(subject.errors.messages[:user]).to include('must exist')
     end
   end
 end

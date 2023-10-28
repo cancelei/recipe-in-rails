@@ -1,7 +1,6 @@
 require 'test_helper'
 
 RSpec.describe Food, type: :model do
-
   # Associations
   it { should belong_to(:user) }
   it { should have_many(:recipe_foods).dependent(:destroy) }
@@ -16,16 +15,16 @@ RSpec.describe Food, type: :model do
 
   describe 'uniqueness of name scoped to user_id' do
     let(:user) { FactoryBot.create(:user) }
-    let!(:food) { FactoryBot.create(:food, user: user, name: 'apple') }
+    let!(:food) { FactoryBot.create(:food, user:, name: 'apple') }
 
     it 'does not allow the same food name for the same user' do
-      duplicate_food = FactoryBot.build(:food, user: user, name: 'apple')
+      duplicate_food = FactoryBot.build(:food, user:, name: 'apple')
       expect(duplicate_food).not_to be_valid
-      expect(duplicate_food.errors[:name]).to include("has already been taken")
+      expect(duplicate_food.errors[:name]).to include('has already been taken')
     end
 
     it 'allows different food names for the same user' do
-      different_food = FactoryBot.build(:food, user: user, name: 'banana')
+      different_food = FactoryBot.build(:food, user:, name: 'banana')
       expect(different_food).to be_valid
     end
 

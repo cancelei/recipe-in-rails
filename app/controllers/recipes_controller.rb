@@ -25,7 +25,6 @@ class RecipesController < ApplicationController
     end
   end
 
-
   def edit; end
 
   def update
@@ -37,7 +36,6 @@ class RecipesController < ApplicationController
     end
   end
 
-
   def destroy
     @recipe = Recipe.find(params[:id])
     @recipe.recipe_foods.destroy_all # This will destroy all associated recipe_foods records
@@ -45,16 +43,13 @@ class RecipesController < ApplicationController
     redirect_to recipes_path, notice: 'Recipe deleted successfully!'
   end
 
-
   private
 
   def recipe_params
     params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description, :public)
   end
 
-
-def record_not_found
-  redirect_to recipes_path, alert: 'Recipe not found'
-end
-
+  def record_not_found
+    redirect_to recipes_path, alert: 'Recipe not found'
+  end
 end

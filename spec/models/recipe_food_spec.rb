@@ -16,13 +16,13 @@ RSpec.describe RecipeFood, type: :model do
     it 'is not valid without a recipe' do
       subject.recipe = nil
       expect(subject).not_to be_valid
-      expect(subject.errors.messages[:recipe]).to include("must exist")
+      expect(subject.errors.messages[:recipe]).to include('must exist')
     end
 
     it 'is not valid without a food' do
       subject.food = nil
       expect(subject).not_to be_valid
-      expect(subject.errors.messages[:food]).to include("must exist")
+      expect(subject.errors.messages[:food]).to include('must exist')
     end
   end
 end

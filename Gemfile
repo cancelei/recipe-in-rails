@@ -69,12 +69,12 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
-  gem 'selenium-webdriver'
-  gem 'rspec-rails'
   gem 'factory_bot'
   gem 'factory_bot_rails'
-  gem 'shoulda-matchers', '~> 4.0'
   gem 'rails-controller-testing'
+  gem 'rspec-rails'
+  gem 'selenium-webdriver'
+  gem 'shoulda-matchers', '~> 4.0'
 end
 
 gem 'devise'

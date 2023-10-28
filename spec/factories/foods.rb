@@ -3,7 +3,7 @@ FactoryBot.define do
   factory :food do
     association :user
     name { Faker::Food.ingredient }
-    measurement_unit { ["grams", "liters", "pieces"].sample }
+    measurement_unit { %w[grams liters pieces].sample }
     price { Faker::Commerce.price(range: 0.1..10.0) } # generates a price between 0.1 and 10.0
     quantity { rand(1..100) } # generates a random integer between 1 and 100
 

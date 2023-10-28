@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe FoodsController, type: :controller do
   # Assuming you have a User and Food factory set up with FactoryBot
   let(:user) { FactoryBot.create(:user) }
-  let(:food) { FactoryBot.create(:food, user: user) }
+  let(:food) { FactoryBot.create(:food, user:) }
 
   before do
     # Assuming a method to sign in the user for the test
@@ -17,7 +17,7 @@ RSpec.describe FoodsController, type: :controller do
     end
 
     it 'lists all foods associated with the current user' do
-      FactoryBot.create_list(:food, 5, user: user)
+      FactoryBot.create_list(:food, 5, user:)
       get :index
       expect(assigns(:foods).length).to eq(5)
     end

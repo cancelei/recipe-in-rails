@@ -2,10 +2,9 @@ require 'rails_helper'
 
 RSpec.describe RecipesController, type: :controller do
   let(:user) { FactoryBot.create(:user) }
-  let(:recipe) { FactoryBot.create(:recipe, user: user) }
-  let(:valid_recipe_params) { { name: "Test Recipe", preparation_time: 10, cooking_time: 20, description: "Test description", public: true } }
-  let(:invalid_recipe_params) { { name: "", preparation_time: 10, cooking_time: 20, description: "Test description", public: true } }
-
+  let(:recipe) { FactoryBot.create(:recipe, user:) }
+  let(:valid_recipe_params) { { name: 'Test Recipe', preparation_time: 10, cooking_time: 20, description: 'Test description', public: true } }
+  let(:invalid_recipe_params) { { name: '', preparation_time: 10, cooking_time: 20, description: 'Test description', public: true } }
 
   before do
     sign_in user
@@ -18,7 +17,7 @@ RSpec.describe RecipesController, type: :controller do
     end
 
     it 'lists all recipes associated with the current user' do
-      FactoryBot.create_list(:recipe, 5, user: user)
+      FactoryBot.create_list(:recipe, 5, user:)
       get :index
       expect(assigns(:recipes).length).to eq(5)
     end
@@ -56,9 +55,9 @@ RSpec.describe RecipesController, type: :controller do
   describe 'POST #create' do
     context 'with valid parameters' do
       it 'creates a new recipe' do
-        expect {
+        expect do
           post :create, params: { recipe: valid_recipe_params }
-        }.to change(Recipe, :count).by(1)
+        end.to change(Recipe, :count).by(1)
       end
 
       it 'redirects to the new recipe with a notice' do
@@ -70,9 +69,9 @@ RSpec.describe RecipesController, type: :controller do
 
     context 'with invalid parameters' do
       it 'does not create a new recipe' do
-        expect {
+        expect do
           post :create, params: { recipe: invalid_recipe_params }
-        }.not_to change(Recipe, :count)
+        end.not_to change(Recipe, :count)
       end
 
       it 'renders the new template with a notice' do
@@ -86,13 +85,13 @@ RSpec.describe RecipesController, type: :controller do
   describe 'PATCH #update' do
     context 'with valid parameters' do
       it 'updates the recipe' do
-        patch :update, params: { id: recipe.id, recipe: { name: "Updated Recipe" } }
+        patch :update, params: { id: recipe.id, recipe: { name: 'Updated Recipe' } }
         recipe.reload
-        expect(recipe.name).to eq("Updated Recipe")
+        expect(recipe.name).to eq('Updated Recipe')
       end
 
       it 'redirects to the recipe with a notice' do
-        patch :update, params: { id: recipe.id, recipe: { name: "Updated Recipe" } }
+        patch :update, params: { id: recipe.id, recipe: { name: 'Updated Recipe' } }
         expect(response).to redirect_to(recipe)
         expect(flash[:notice]).to eq('Recipe updated successfully!')
       end
@@ -100,13 +99,13 @@ RSpec.describe RecipesController, type: :controller do
 
     context 'with invalid parameters' do
       it 'does not update the recipe' do
-        patch :update, params: { id: recipe.id, recipe: { name: "" } }
+        patch :update, params: { id: recipe.id, recipe: { name: '' } }
         recipe.reload
-        expect(recipe.name).not_to eq("")
+        expect(recipe.name).not_to eq('')
       end
 
       it 'renders the edit template' do
-        patch :update, params: { id: recipe.id, recipe: { name: "" } }
+        patch :update, params: { id: recipe.id, recipe: { name: '' } }
         expect(response).to render_template(:edit)
       end
     end
@@ -114,10 +113,10 @@ RSpec.describe RecipesController, type: :controller do
 
   describe 'DELETE #destroy' do
     it 'deletes the recipe' do
-      recipe_to_delete = FactoryBot.create(:recipe, user: user)
-      expect {
+      recipe_to_delete = FactoryBot.create(:recipe, user:)
+      expect do
         delete :destroy, params: { id: recipe_to_delete.id }
-      }.to change(Recipe, :count).by(-1)
+      end.to change(Recipe, :count).by(-1)
     end
 
     it 'redirects to the recipes index with a notice' do
@@ -129,7 +128,7 @@ RSpec.describe RecipesController, type: :controller do
 
   describe 'handling ActiveRecord::RecordNotFound' do
     it 'redirects to the recipes index with an alert' do
-      get :show, params: { id: "invalid" }
+      get :show, params: { id: 'invalid' }
       expect(response).to redirect_to(recipes_path)
       expect(flash[:alert]).to eq('Recipe not found')
     end
