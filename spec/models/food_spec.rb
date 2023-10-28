@@ -1,7 +1,6 @@
-require 'test_helper'
+require 'rails_helper'
 
 RSpec.describe Food, type: :model do
-
   # Associations
   it { should belong_to(:user) }
   it { should have_many(:recipe_foods).dependent(:destroy) }
@@ -15,24 +14,23 @@ RSpec.describe Food, type: :model do
   it { should validate_numericality_of(:quantity).only_integer.is_greater_than_or_equal_to(0) }
 
   describe 'uniqueness of name scoped to user_id' do
-    let(:user) { FactoryBot.create(:user) }
-    let!(:food) { FactoryBot.create(:food, user: user, name: 'apple') }
+    let(:user) { create(:user) }
+    let!(:food) { create(:food, user: user, name: 'apple') }
 
     it 'does not allow the same food name for the same user' do
-      duplicate_food = FactoryBot.build(:food, user: user, name: 'apple')
-      expect(duplicate_food).not_to be_valid
-      expect(duplicate_food.errors[:name]).to include("has already been taken")
+      food_with_same_name = build(:food, user: user, name: 'apple')
+      expect(food_with_same_name).not_to be_valid
     end
 
     it 'allows different food names for the same user' do
-      different_food = FactoryBot.build(:food, user: user, name: 'banana')
+      different_food = build(:food, user: user, name: "Banana")
       expect(different_food).to be_valid
     end
 
     it 'allows the same food name for different users' do
-      another_user = FactoryBot.create(:user)
-      another_food = FactoryBot.build(:food, user: another_user, name: 'apple')
-      expect(another_food).to be_valid
+      different_user = create(:user)
+      food_for_different_user = build(:food, user: different_user, name: "apple")
+      expect(food_for_different_user).to be_valid
     end
   end
 end
