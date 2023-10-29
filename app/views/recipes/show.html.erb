@@ -98,8 +98,10 @@
             </td>
             <td class="border px-4 py-2">$<%= recipe_food.food.price %></td>
             <td class="border px-4 py-2">
-              <a href="#" class="text-blue-500">Modify</a> |
-              <a href="#" class="text-red-500">Remove</a>
+              <%= form_for [@recipe, recipe_food], url: recipe_recipe_food_path(@recipe, recipe_food), method: :delete, data: { confirm: "Are you sure? The recipe will be permanently deleted" } do |f| %>
+                <% f.submit "Remove", class: "text-red-500" %>
+              <% end %>
+              <!-- <%= link_to 'Remove', recipe_recipe_food_path(@recipe, recipe_food), method: :delete %> -->
             </td>
           </tr>
           <% end %> <% if recipe_food.errors.any? %>
