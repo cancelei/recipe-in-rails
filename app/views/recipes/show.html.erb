@@ -3,59 +3,78 @@
   </head>
   <body>
     <h1 class="recipe-title"><%= @recipe.name %></h1>
-    <div>
-      <% if @recipe.preparation_time >= 60 && @recipe.cooking_time >= 60 %>
-      <p>
-        Preparation time: <%= @recipe.preparation_time / 60 %>:<%=
-        @recipe.preparation_time % 60 %> hour
-      </p>
-      <p>
-        Cooking time: <%= @recipe.cooking_time / 60 %>:<%= @recipe.cooking_time
-        % 60 %> hour
-      </p>
-      <% else %>
-      <p>Preparation time: <%= @recipe.preparation_time %> mins</p>
-      <p>Cooking time: <%= @recipe.cooking_time %> mins</p>
-      <% end %> <%= @recipe.description %> <% if @recipe.public %>
-      <p>Public Recipe</p>
-      <% else %>
-      <p>Private Recipe</p>
-      <% end %>
-      <% if current_user == @recipe.user %>
-        <!-- <%= form_for @recipe, url: recipe_path(@recipe), method: :put do |f| %>
-          <div class="form-check form-switch">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Status: </label>
-            <%= f.check_box :public, value: !@recipe.public ? true : false, class: "form-check-input", id: "flexSwitchCheckDefault"   %>
+    <div class="d-flex flex-column align-items-center ">
+      <div class="d-flex w-100 justify-content-around">
+        <div>
+          <% if @recipe.preparation_time >= 60 && @recipe.cooking_time >= 60 %>
+          <p>
+            Preparation time: <%= @recipe.preparation_time / 60 %>:<%=
+            @recipe.preparation_time % 60 %> hour
+          </p>
+          <p>
+            Cooking time: <%= @recipe.cooking_time / 60 %>:<%= @recipe.cooking_time
+            % 60 %> hour
+          </p>
+          <% else %>
+          <p>Preparation time: <%= @recipe.preparation_time %> mins</p>
+          <p>Cooking time: <%= @recipe.cooking_time %> mins</p>
+          <% end %>
+          <div class="mt-2">
+            <p class="fw-bold fs-5 text-decoration-underline ">
+              Description:
+            </p>
+            <%= @recipe.description %>
           </div>
-          <div class="actions">
-            <%= f.submit %>
-          </div>
-        <% end %> -->
-
-        <%= form_for @recipe, url: recipe_path(@recipe), method: :put, html: { id: 'recipe-form' } do |f| %>
-          <div class="form-check form-switch">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Status: </label>
-            <%= f.check_box :public, value: !@recipe.public ? true : false, class: "form-check-input", id: "flexSwitchCheckDefault" %>
-          </div>
-          <div class="actions">
-            <%= f.submit id: 'submit-button', class: "d-none" %>
-          </div>
+        </div>
+        <div class="d-flex flex-column justify-content-between">
+          <% if current_user == @recipe.user %>
+            <!-- <%= form_for @recipe, url: recipe_path(@recipe), method: :put do |f| %>
+              <div class="form-check form-switch">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Status: </label>
+                <%= f.check_box :public, value: !@recipe.public ? true : false, class: "form-check-input", id: "flexSwitchCheckDefault"   %>
+              </div>
+              <div class="actions">
+                <%= f.submit %>
+              </div>
+            <% end %> -->
+    
+            <%= form_for @recipe, url: recipe_path(@recipe), method: :put, html: { id: 'recipe-form' } do |f| %>
+              <div class="form-check form-switch">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Public</label>
+                <%= f.check_box :public, value: !@recipe.public ? true : false, class: "form-check-input", id: "flexSwitchCheckDefault" %>
+              </div>
+              <div class="actions">
+                <%= f.submit id: 'submit-button', class: "d-none" %>
+              </div>
+            <% end %>
+    
+            <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                var checkbox = document.getElementById('flexSwitchCheckDefault');
+                var submitButton = document.getElementById('submit-button'); // Replace 'submit-button' with your actual submit button ID
+    
+                checkbox.addEventListener('change', function() {
+                  // Change the state of the submit button when the checkbox changes
+                  submitButton.click();
+                  location.reload();
+                });
+              });
+            </script>
+    
+          <% end %>
+        </div>
+      </div>
+      <div class="d-flex w-100 justify-content-around mt-5">
+        <%= link_to generate_shopping_list_recipe_path(@recipe), class: 'inline-block' do %>
+          <button class="btn btn-secondary">
+            Generate shopping list
+          </button>
         <% end %>
-
-        <script>
-          document.addEventListener('DOMContentLoaded', function() {
-            var checkbox = document.getElementById('flexSwitchCheckDefault');
-            var submitButton = document.getElementById('submit-button'); // Replace 'submit-button' with your actual submit button ID
-
-            checkbox.addEventListener('change', function() {
-              // Change the state of the submit button when the checkbox changes
-              submitButton.click();
-              location.reload();
-            });
-          });
-        </script>
-
-      <% end %>
+        <!-- Button to Open the Modal -->
+        <% if current_user == @recipe.user %>
+          <button class="btn btn-primary" onclick="openModal()">Add Ingredient</button>
+        <% end %>
+      </div>
 
       <h2 class="text-2xl font-bold mb-4">Ingredients</h2>
       <table class="w-full table-auto">
@@ -93,35 +112,28 @@
         </tbody>
       </table>
       <div class="mt-6">
-      <%= link_to generate_shopping_list_recipe_path(@recipe), class: 'inline-block' do %>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Generate shopping list
-        </button>
-      <% end %>
-
-        <!-- Button to Open the Modal -->
-        <% if current_user == @recipe.user %>
-          <button onclick="openModal()">Add Ingredient</button>
-        <% end %>
         <!-- Modal Content -->
-        <div id="addIngredientModal" class="modal" style="display: none">
-          <div class="modal-content">
-            <div class="modal-header">
-              <span class="close" onclick="closeModal()">&times;</span>
-              <h2>Add Ingredient</h2>
-            </div>
-            <div class="modal-body">
-              <%= form_for [@recipe, RecipeFood.new], url: recipe_recipe_foods_path(@recipe), data: { turbo: "false" } do |f| %>
-                <div class="mb-3">
-                  <%= f.label :food_id, "Select Food" %> <%= f.collection_select :food_id, Food.all, :id, :name %>
-                </div>
-                <div class="mb-3">
-                  <%= f.label :quantity, "Quantity" %> <%= f.number_field :quantity %>
-                </div>
-                <%= f.submit "Add Ingredient" %>
-              <% end %>
+        <div id="addIngredientModal" class="modal m-auto top-50" style="display: none">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Add Ingredient</h2>
+              </div>
+              <div class="modal-body">
+                <%= form_for [@recipe, RecipeFood.new], url: recipe_recipe_foods_path(@recipe), data: { turbo: "false" } do |f| %>
+                  <div class="mb-3">
+                    <%= f.label :food_id, "Select Food" %> <%= f.collection_select :food_id, Food.all, :id, :name %>
+                  </div>
+                  <div class="mb-3">
+                    <%= f.label :quantity, "Quantity" %> <%= f.number_field :quantity %>
+                  </div>
+                  <%= f.submit "Add Ingredient", class: "btn btn-primary add-ingredient-modal-button" %>                  
+                <% end %>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>

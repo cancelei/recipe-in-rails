@@ -1,9 +1,7 @@
-input {
-  margin: 10px 0;
-  color: #047fff;
+.add-ingredient-modal-button {
+  color: #444;
 
   &:hover {
-    cursor: pointer;
-    text-decoration: underline;
+    color: #fff;
   }
 }
