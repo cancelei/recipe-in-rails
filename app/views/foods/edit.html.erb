@@ -1,0 +1,14 @@
+<h2>Edit Food</h2>
+
+<%= render 'form', food: @food %>
+
+<%= link_to 'Back', foods_path %>
+
+<!-- in edit.html.erb or the form partial -->
+<% if @food.errors.any? %>
+  <ul>
+    <% @food.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>

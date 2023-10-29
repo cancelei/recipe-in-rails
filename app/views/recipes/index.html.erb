@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recipes Index</title>
+  <%= stylesheet_link_tag 'recipes/recipe_index' %>
+</head>
+<body>
+  <h1 class="recipe-title">Recipes</h1>
+  <% if @recipes.empty? %>
+    <div class="no-recipes-container">
+      <h2 class="no-recipes-subtitle">There are no recipes created yet</h2>
+      <div class="link-container">
+        <%= link_to 'Create One!', new_recipe_path, class: "recipe-link new-recipe-link" %>
+      </div>
+    </div>
+  <% else %>
+    <% @recipes.each do |recipe| %>
+      <div class="recipe-container">
+        <div>
+          <%= link_to recipe.name, recipe, class: "recipe-link title-link" %>
+          <% if recipe.user == current_user %>
+            <%= render partial: 'delete_form', locals: { recipe: recipe } %>
+          <% end %>
+        </div>
+        <p class="recipe-description"><strong>Description:</strong> <%= recipe.description %></p>
+      </div>
+    <% end %>
+    <div class="link-container">
+      <%= link_to 'Create new recipe', new_recipe_path, class: "recipe-link new-recipe-link" %>
+    </div>
+  <% end %>
+</body>
+</html>
+

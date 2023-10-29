@@ -1,0 +1,148 @@
+<head>
+    <title>Recipe <%= @recipe.name %></title>
+  </head>
+  <body>
+    <h1 class="recipe-title"><%= @recipe.name %></h1>
+    <div class="d-flex flex-column align-items-center ">
+      <div class="d-flex w-100 justify-content-around">
+        <div>
+          <% if @recipe.preparation_time >= 60 && @recipe.cooking_time >= 60 %>
+          <p>
+            Preparation time: <%= @recipe.preparation_time / 60 %>:<%=
+            @recipe.preparation_time % 60 %> hour
+          </p>
+          <p>
+            Cooking time: <%= @recipe.cooking_time / 60 %>:<%= @recipe.cooking_time
+            % 60 %> hour
+          </p>
+          <% else %>
+          <p>Preparation time: <%= @recipe.preparation_time %> mins</p>
+          <p>Cooking time: <%= @recipe.cooking_time %> mins</p>
+          <% end %>
+          <div class="mt-2">
+            <p class="fw-bold fs-5 text-decoration-underline ">
+              Description:
+            </p>
+            <%= @recipe.description %>
+          </div>
+        </div>
+        <div class="d-flex flex-column justify-content-between">
+          <% if current_user == @recipe.user %>
+            <!-- <%= form_for @recipe, url: recipe_path(@recipe), method: :put do |f| %>
+              <div class="form-check form-switch">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Status: </label>
+                <%= f.check_box :public, value: !@recipe.public ? true : false, class: "form-check-input", id: "flexSwitchCheckDefault"   %>
+              </div>
+              <div class="actions">
+                <%= f.submit %>
+              </div>
+            <% end %> -->
+    
+            <%= form_for @recipe, url: recipe_path(@recipe), method: :put, html: { id: 'recipe-form' } do |f| %>
+              <div class="form-check form-switch">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Public</label>
+                <%= f.check_box :public, value: !@recipe.public ? true : false, class: "form-check-input", id: "flexSwitchCheckDefault" %>
+              </div>
+              <div class="actions">
+                <%= f.submit id: 'submit-button', class: "d-none" %>
+              </div>
+            <% end %>
+    
+            <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                var checkbox = document.getElementById('flexSwitchCheckDefault');
+                var submitButton = document.getElementById('submit-button'); // Replace 'submit-button' with your actual submit button ID
+    
+                checkbox.addEventListener('change', function() {
+                  // Change the state of the submit button when the checkbox changes
+                  submitButton.click();
+                  location.reload();
+                });
+              });
+            </script>
+    
+          <% end %>
+        </div>
+      </div>
+      <div class="d-flex w-100 justify-content-around mt-5">
+        <%= link_to 'Generate Shopping List', generate_shopping_list_path, class: 'btn btn-secondary inline-block' %>
+        <!-- Button to Open the Modal -->
+        <% if current_user == @recipe.user %>
+          <button class="btn btn-primary" onclick="openModal()">Add Ingredient</button>
+        <% end %>
+      </div>
+
+      <h2 class="text-2xl font-bold mb-4">Ingredients</h2>
+      <table class="w-full table-auto">
+        <!-- Table Headers -->
+        <thead>
+          <tr>
+            <th class="px-4 py-2">Food</th>
+            <th class="px-4 py-2">Quantity</th>
+            <th class="px-4 py-2">Value</th>
+            <th class="px-4 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recipe.recipe_foods.each do |recipe_food| %> <% if
+          recipe_food.food %>
+          <tr>
+            <td class="border px-4 py-2"><%= recipe_food.food.name %></td>
+            <td class="border px-4 py-2">
+              <%= recipe_food.quantity %> <%= recipe_food.food.measurement_unit
+              %>
+            </td>
+            <td class="border px-4 py-2">$<%= recipe_food.food.price %></td>
+            <td class="border px-4 py-2">
+              <%= form_for [@recipe, recipe_food], url: recipe_recipe_food_path(@recipe, recipe_food), method: :delete, data: { confirm: "Are you sure? The recipe will be permanently deleted" } do |f| %>
+                <% f.submit "Remove", class: "btn btn-danger remove-btn" %>
+              <% end %>
+              <!-- <%= link_to 'Remove', recipe_recipe_food_path(@recipe, recipe_food), method: :delete %> -->
+            </td>
+          </tr>
+          <% end %> <% if recipe_food.errors.any? %>
+          <ul>
+            <% recipe_food.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+          </ul>
+          <% end %> <% end %>
+        </tbody>
+      </table>
+      <div class="mt-6">
+        <!-- Modal Content -->
+        <div id="addIngredientModal" class="modal m-auto top-50" style="display: none">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Add Ingredient</h2>
+              </div>
+              <div class="modal-body">
+                <%= form_for [@recipe, RecipeFood.new], url: recipe_recipe_foods_path(@recipe), data: { turbo: "false" } do |f| %>
+                  <div class="mb-3">
+                    <%= f.label :food_id, "Select Food" %> <%= f.collection_select :food_id, Food.all, :id, :name %>
+                  </div>
+                  <div class="mb-3">
+                    <%= f.label :quantity, "Quantity" %> <%= f.number_field :quantity %>
+                  </div>
+                  <%= f.submit "Add Ingredient", class: "btn btn-primary add-ingredient-modal-button" %>                  
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <script>
+      function openModal() {
+        console.log("Opening modal...");
+        document.getElementById("addIngredientModal").style.display = "block";
+      }
+      function closeModal() {
+        console.log("Closing modal...");
+        document.getElementById("addIngredientModal").style.display = "none";
+      }
+    </script>
+  </body>
