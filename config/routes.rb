@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'generate_shopping_list', to: 'recipes#generate_shopping_list', as: 'generate_shopping_list'
+
   root to: 'dashboard#index'
   resources :foods
   resources :recipes do
