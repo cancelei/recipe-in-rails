@@ -25,10 +25,6 @@ Rails.application.routes.draw do
   resources :foods
   resources :recipes do
     resources :recipe_foods, only: [:create, :destroy]
-  end
-  get 'public_recipes/index', to: 'public_recipes#index', as: 'public_recipes_index'
-
-  resources :recipes do
     member do
       get :generate_shopping_list
     end
