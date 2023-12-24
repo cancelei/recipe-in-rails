@@ -6,7 +6,7 @@
         <% if user_signed_in? %>
     <span> Welcome, <%= current_user.email %></span>
     <%= link_to 'My Recipes', recipes_path %>
-    <%= link_to 'Public Recipes', public_recipes_index_path %>
+    <%= link_to 'Public Recipes', '/public_recipes' %>
     <%= link_to 'My Foods', foods_path %>
     <%= form_tag(destroy_user_session_path, method: :delete) do %>
           <%= submit_tag 'Log Out', style: 'color: #047fff; cursor: pointer;' %>

@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
   root to: 'dashboard#index'
   resources :foods
+  resources :public_recipes, only: [:index]
+
   resources :recipes do
     resources :recipe_foods, only: [:create, :destroy]
     member do
