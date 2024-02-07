@@ -93,6 +93,7 @@ git@github.com:cancelei/recipe-in-rails.git
 ### Install
 
 Install this project with:
+It run's with Tailwind and DaisyUI.
 
 ```sh
   cd recipes-app
@@ -112,7 +113,7 @@ Setting up the Data Base:
 To run the project, execute the following command:
 
 ```sh
-  rails server
+  ./bin/dev
 ```
 
 ### Run tests
