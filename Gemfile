@@ -83,6 +83,4 @@ gem 'popper_js', '~> 2.11.8'
 
 gem 'tailwindcss-rails', '~> 2.0'
 
-gem 'bootstrap', '~> 5.3.2'
-
 gem 'faker'
