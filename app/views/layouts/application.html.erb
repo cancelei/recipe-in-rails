@@ -14,9 +14,6 @@
   <body class="h-full">
     <%= render 'shared/navbar' %>
     <br>
-    <div class="notice-flash">
-      <%= notice %>
-    </div>
     <% flash.each do |type, message| %>
       <p class="<%= type %>"><%= message %></p>
     <% end %>
