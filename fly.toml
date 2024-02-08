@@ -1,16 +1,13 @@
-# fly.toml app configuration file generated for recipe-in-rails-2-small-log-6806 on 2024-02-08T16:05:14-03:00
+# fly.toml app configuration file generated for recipe-in-rails-2-broken-pond-1632 on 2024-02-08T16:23:27-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'recipe-in-rails-2-small-log-6806'
+app = 'recipe-in-rails-2-broken-pond-1632'
 primary_region = 'gru'
 console_command = '/rails/bin/rails console'
 
 [build]
-
-[deploy]
-  release_command = './bin/rails db:prepare'
 
 [http_service]
   internal_port = 3000
