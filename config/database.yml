@@ -26,7 +26,13 @@ default: &default
 
 development:
   <<: *default
-  database: recipe_in_rails_development
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: baasu.db.elephantsql.com
+  database: dgdmfcit
+  username: dgdmfcit
+  password: <%= ENV["DATABASE_PASSWORD"] %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -84,6 +90,10 @@ test:
 #
 production:
   <<: *default
-  database: recipe_in_rails_production
-  username: recipe_in_rails
-  password: <%= ENV["RECIPE_IN_RAILS_DATABASE_PASSWORD"] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: baasu.db.elephantsql.com
+  database: dgdmfcit
+  username: dgdmfcit
+  password: <%= ENV["DATABASE_PASSWORD"] %>
