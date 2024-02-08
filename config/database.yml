@@ -26,9 +26,6 @@ development:
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: baasu.db.elephantsql.com
-  database: dgdmfcit
-  username: dgdmfcit
   password: <%= ENV["DATABASE_PASSWORD"] %>
 
   # The specified database role being used to connect to postgres.
@@ -90,7 +87,4 @@ production:
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: baasu.db.elephantsql.com
-  database: dgdmfcit
-  username: dgdmfcit
   password: <%= ENV["DATABASE_PASSWORD"] %>
