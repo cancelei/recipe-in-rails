@@ -344,6 +344,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 7.1.3)
   rails-controller-testing
+  rake
   rspec-rails
   rubocop
   sassc-rails
