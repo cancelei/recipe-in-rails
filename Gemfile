@@ -87,3 +87,5 @@ gem 'popper_js', '~> 2.11.8'
 gem 'tailwindcss-rails', '~> 2.0'
 
 gem 'faker'
+
+gem "dockerfile-rails", ">= 1.6", :group => :development
